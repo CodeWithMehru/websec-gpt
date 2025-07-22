@@ -39,7 +39,7 @@ export function ChatInput({ onSendMessage }: ChatInputProps) {
 
   return (
     <div className="relative">
-      <div className="flex gap-2 items-end p-2 rounded-2xl bg-secondary/50 border border-border">
+      <div className="flex gap-2 items-end px-1 md:px-2 rounded-2xl bg-secondary/50 border border-border">
         <Button variant="ghost" size="icon" className="shrink-0">
           <Image />
           <span className="sr-only">Upload Image</span>
@@ -54,7 +54,7 @@ export function ChatInput({ onSendMessage }: ChatInputProps) {
           onChange={handleInputChange}
           onKeyPress={handleKeyPress}
           placeholder="Enter a prompt here"
-          className="flex-1 resize-none border-0 shadow-none focus-visible:ring-0 bg-transparent max-h-48"
+          className="flex-1 resize-none border-0 shadow-none focus-visible:ring-0 bg-transparent max-h-48 py-2"
           rows={1}
         />
         <Button
