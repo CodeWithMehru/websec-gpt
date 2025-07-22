@@ -177,7 +177,7 @@ export function ChatInput({ onSendMessage }: ChatInputProps) {
           size="icon"
           onClick={handleSend}
           disabled={!message.trim()}
-          className="shrink-0 bg-black hover:bg-black/90 text-white disabled:bg-muted"
+          className="shrink-0 bg-background hover:bg-secondary text-foreground disabled:bg-muted rounded-full"
         >
           <SendHorizonal />
           <span className="sr-only">Send</span>

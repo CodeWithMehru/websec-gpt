@@ -4,8 +4,7 @@ import { Toaster } from "@/components/ui/toaster"
 import { ThemeProvider } from '@/components/theme-provider';
 
 export const metadata: Metadata = {
-  title: 'Twin AI',
-  description: 'A clone of the Gemini AI interface',
+  title: 'WebSec GPT',
 };
 
 export default function RootLayout({
