@@ -5,8 +5,7 @@ import { ChatWelcome } from "./chat-welcome"
 import { ChatInput } from "./chat-input"
 import { ChatMessage, type Message } from "./chat-message"
 import { ScrollArea } from "@/components/ui/scroll-area"
-import { Button } from '../ui/button';
-import { ChevronDown } from 'lucide-react';
+import { ThemeToggle } from '../theme-toggle';
 
 const initialMessages: Message[] = [];
 
@@ -56,9 +55,7 @@ export function ChatInterface() {
           <SidebarTrigger className="md:hidden" />
           <h1 className="text-lg font-semibold">Twin AI</h1>
         </div>
-        <Button variant="outline" size="sm" className="gap-2">
-          Gemini 1.0 Pro <ChevronDown size={16}/>
-        </Button>
+        <ThemeToggle />
       </header>
 
       <main className="flex-1 overflow-y-auto">
