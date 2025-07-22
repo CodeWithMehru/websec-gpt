@@ -148,7 +148,7 @@ export function ChatInput({ onSendMessage }: ChatInputProps) {
 
   return (
     <div className="relative">
-      <div className="flex gap-2 items-center p-2 rounded-2xl bg-secondary/20 border border-border">
+      <div className="flex gap-1 items-center p-2 rounded-2xl bg-secondary/20 border border-border">
         <input
           type="file"
           ref={fileInputRef}
@@ -156,23 +156,28 @@ export function ChatInput({ onSendMessage }: ChatInputProps) {
           className="hidden"
           accept="image/*"
         />
-        <Button variant="ghost" size="icon" className="shrink-0" onClick={handleImageUploadClick}>
-          <Image />
-          <span className="sr-only">Upload Image</span>
-        </Button>
-        <Button variant="ghost" size="icon" className="shrink-0" onClick={handleMicClick}>
-          <Mic className={cn(isRecording && "text-red-500")} />
-          <span className="sr-only">Use Microphone</span>
-        </Button>
+  
+        <div className="flex items-center">
+          <Button variant="ghost" size="icon" className="shrink-0 hover:bg-secondary" onClick={handleImageUploadClick}>
+            <Image />
+            <span className="sr-only">Upload Image</span>
+          </Button>
+          <Button variant="ghost" size="icon" className="shrink-0 hover:bg-secondary" onClick={handleMicClick}>
+            <Mic className={cn(isRecording && "text-red-500")} />
+            <span className="sr-only">Use Microphone</span>
+          </Button>
+        </div>
+  
         <Textarea
           ref={textareaRef}
           value={message}
           onChange={handleInputChange}
           onKeyPress={handleKeyPress}
           placeholder="Ask anything"
-          className="flex-1 resize-none border-0 shadow-none focus-visible:ring-0 bg-transparent max-h-48 py-7"
+          className="flex-1 resize-none border-0 shadow-none focus-visible:ring-0 bg-transparent max-h-48 py-2"
           rows={1}
         />
+  
         <Button
           size="icon"
           onClick={handleSend}
@@ -185,4 +190,5 @@ export function ChatInput({ onSendMessage }: ChatInputProps) {
       </div>
     </div>
   )
+  
 }
