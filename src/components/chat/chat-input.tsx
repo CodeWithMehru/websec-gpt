@@ -11,6 +11,20 @@ interface ChatInputProps {
 export function ChatInput({ onSendMessage }: ChatInputProps) {
   const [message, setMessage] = useState("")
   const textareaRef = useRef<HTMLTextAreaElement>(null)
+  const fileInputRef = useRef<HTMLInputElement>(null)
+
+  const handleImageUploadClick = () => {
+    fileInputRef.current?.click();
+  };
+
+  const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0];
+    if (file) {
+      // You can handle the file upload logic here.
+      // For now, we'll just log it to the console.
+      console.log("Selected file:", file.name);
+    }
+  };
 
   const handleInputChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
     setMessage(e.target.value)
@@ -40,7 +54,14 @@ export function ChatInput({ onSendMessage }: ChatInputProps) {
   return (
     <div className="relative">
       <div className="flex gap-2 items-end px-1 md:px-2 rounded-2xl bg-secondary/50 border border-border">
-        <Button variant="ghost" size="icon" className="shrink-0">
+        <input
+          type="file"
+          ref={fileInputRef}
+          onChange={handleFileChange}
+          className="hidden"
+          accept="image/*"
+        />
+        <Button variant="ghost" size="icon" className="shrink-0" onClick={handleImageUploadClick}>
           <Image />
           <span className="sr-only">Upload Image</span>
         </Button>
