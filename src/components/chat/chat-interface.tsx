@@ -56,7 +56,7 @@ export function ChatInterface() {
           <SidebarTrigger className="md:hidden" />
           <h1 className="text-lg font-semibold">WebSec GPT</h1>
         </div>
-        <div className="ml-auto">
+        <div className="ml-auto pr-2">
           <ThemeToggle />
         </div>
       </header>
@@ -76,7 +76,7 @@ export function ChatInterface() {
 
 
       <footer className="p-2 md:p-4 border-t bg-background">
-        <div className="max-w-4xl mx-auto">
+        <div className="max-w-4xl mx-auto px-2">
           <ChatInput onSendMessage={handleSendMessage} />
           <p className="text-xs text-center text-muted-foreground mt-2">
           WebSec GPT can make mistakes. Check important info.
