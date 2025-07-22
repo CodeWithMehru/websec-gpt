@@ -53,7 +53,7 @@ export function ChatInterface() {
       <header className="flex items-center justify-between p-2 md:p-4 border-b">
         <div className="flex items-center gap-2">
           <SidebarTrigger className="md:hidden" />
-          <h1 className="text-lg font-semibold">Twin AI</h1>
+          <h1 className="text-lg font-semibold">WebSec GPT</h1>
         </div>
         <ThemeToggle />
       </header>
@@ -74,7 +74,7 @@ export function ChatInterface() {
         <div className="max-w-4xl mx-auto">
           <ChatInput onSendMessage={handleSendMessage} />
           <p className="text-xs text-center text-muted-foreground mt-2">
-            Twin AI may display inaccurate info. This is a UI clone for demonstration purposes.
+          WebSec GPT can make mistakes. Check important info.
           </p>
         </div>
       </footer>

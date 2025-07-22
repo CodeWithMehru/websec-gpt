@@ -27,8 +27,8 @@ const suggestionCards = [
 
 export function ChatWelcome() {
   return (
-    <div className="flex flex-col items-center justify-center h-full py-10">
-      <div className="text-center mb-12">
+    <div className="flex flex-col items-center justify-center h-full py-4 md:py-10">
+      <div className="text-center mb-8 md:mb-12">
         <h1 className="text-5xl md:text-6xl font-bold bg-gradient-to-r from-primary via-purple-500 to-red-500 text-transparent bg-clip-text mb-4">
           Hello, User
         </h1>

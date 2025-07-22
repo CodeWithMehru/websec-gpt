@@ -169,7 +169,7 @@ export function ChatInput({ onSendMessage }: ChatInputProps) {
           value={message}
           onChange={handleInputChange}
           onKeyPress={handleKeyPress}
-          placeholder="Enter a prompt here"
+          placeholder="Ask anything"
           className="flex-1 resize-none border-0 shadow-none focus-visible:ring-0 bg-transparent max-h-48 py-2"
           rows={1}
         />
