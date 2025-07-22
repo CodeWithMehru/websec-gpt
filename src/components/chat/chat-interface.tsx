@@ -71,7 +71,7 @@ export function ChatInterface() {
         </ScrollArea>
       </main>
 
-      <footer className="p-4 md:p-6 border-t bg-background">
+      <footer className="p-2 md:p-4 border-t bg-background">
         <div className="max-w-4xl mx-auto">
           <ChatInput onSendMessage={handleSendMessage} />
           <p className="text-xs text-center text-muted-foreground mt-2">
