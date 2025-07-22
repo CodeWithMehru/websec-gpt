@@ -156,7 +156,7 @@ export function ChatInput({ onSendMessage }: ChatInputProps) {
   }, [message]);
 
   return (
-    <div className="flex items-center w-full">
+    <div className="flex items-center p-2 rounded-full border bg-secondary/50">
       <input
         type="file"
         ref={fileInputRef}
@@ -164,37 +164,42 @@ export function ChatInput({ onSendMessage }: ChatInputProps) {
         className="hidden"
         accept="image/*"
       />
-      <Button variant="ghost" size="icon" className="shrink-0 hover:bg-secondary" onClick={handleImageUploadClick}>
+      <Button
+        variant="ghost"
+        size="icon"
+        onClick={handleImageUploadClick}
+        className="shrink-0 hover:bg-secondary"
+      >
         <Image />
         <span className="sr-only">Upload Image</span>
       </Button>
-
-      <div className="flex-1 flex items-center gap-2 ml-2">
-        <Button variant="ghost" size="icon" className="shrink-0 hover:bg-secondary" onClick={handleMicClick}>
-          <Mic className={cn(isRecording && "text-red-500")} />
-          <span className="sr-only">Use Microphone</span>
-        </Button>
-
-        <Textarea
-          ref={textareaRef}
-          value={message}
-          onChange={handleInputChange}
-          onKeyPress={handleKeyPress}
-          placeholder="Ask anything"
-          className="flex-1 resize-none border-0 shadow-none focus-visible:ring-0 bg-transparent py-7 max-h-32"
-          rows={1}
-        />
-
-        <Button
-          size="icon"
-          onClick={handleSend}
-          disabled={!message.trim()}
-          className="shrink-0 bg-background hover:bg-secondary text-foreground disabled:bg-muted rounded-full w-8 h-8"
-        >
-          <SendHorizonal className="text-black dark:text-white" />
-          <span className="sr-only">Send</span>
-        </Button>
-      </div>
+      <Button
+        variant="ghost"
+        size="icon"
+        onClick={handleMicClick}
+        className={cn("shrink-0 hover:bg-secondary", isRecording && "text-red-500")}
+      >
+        <Mic />
+        <span className="sr-only">Use Microphone</span>
+      </Button>
+      <Textarea
+        ref={textareaRef}
+        value={message}
+        onChange={handleInputChange}
+        onKeyPress={handleKeyPress}
+        placeholder="Ask anything"
+        className="flex-1 resize-none border-0 shadow-none focus-visible:ring-0 bg-transparent py-2"
+        rows={1}
+      />
+      <Button
+        size="icon"
+        onClick={handleSend}
+        disabled={!message.trim()}
+        className="shrink-0 bg-transparent hover:bg-transparent text-foreground disabled:opacity-50 w-10 h-10"
+      >
+        <SendHorizonal className="dark:text-white text-black" />
+        <span className="sr-only">Send</span>
+      </Button>
     </div>
-  )
+  );
 }
