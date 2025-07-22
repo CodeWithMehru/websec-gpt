@@ -156,7 +156,7 @@ export function ChatInput({ onSendMessage }: ChatInputProps) {
   }, [message]);
 
   return (
-    <div className="relative flex items-center p-2 rounded-2xl bg-secondary/20 border border-border w-full">
+    <div className="flex items-center gap-2">
       <input
         type="file"
         ref={fileInputRef}
@@ -180,7 +180,7 @@ export function ChatInput({ onSendMessage }: ChatInputProps) {
         onChange={handleInputChange}
         onKeyPress={handleKeyPress}
         placeholder="Ask anything"
-        className="flex-1 resize-none border-0 shadow-none focus-visible:ring-0 bg-transparent py-2 max-h-32"
+        className="flex-1 resize-none border-0 shadow-none focus-visible:ring-0 bg-transparent py-7 max-h-32"
         rows={1}
       />
 
