@@ -148,7 +148,7 @@ export function ChatInput({ onSendMessage }: ChatInputProps) {
 
   return (
     <div className="relative">
-      <div className="flex gap-2 items-center px-1 md:px-2 rounded-2xl bg-secondary/50 border border-border">
+      <div className="flex gap-2 items-center pl-1 md:pl-2 rounded-2xl bg-secondary/50 border border-border">
         <input
           type="file"
           ref={fileInputRef}
@@ -179,7 +179,7 @@ export function ChatInput({ onSendMessage }: ChatInputProps) {
           disabled={!message.trim()}
           className="shrink-0 bg-background hover:bg-secondary text-foreground disabled:bg-muted rounded-full"
         >
-          <SendHorizonal />
+          <SendHorizonal className="text-black dark:text-white" />
           <span className="sr-only">Send</span>
         </Button>
       </div>
