@@ -148,7 +148,7 @@ export function ChatInput({ onSendMessage }: ChatInputProps) {
 
   return (
     <div className="relative">
-      <div className="flex gap-5 items-center p-2 rounded-2xl bg-secondary/20 border border-border">
+      <div className="flex gap-2 items-center p-2 rounded-2xl bg-secondary/20 border border-border">
         <input
           type="file"
           ref={fileInputRef}
