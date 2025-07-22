@@ -56,7 +56,9 @@ export function ChatInterface() {
           <SidebarTrigger className="md:hidden" />
           <h1 className="text-lg font-semibold">WebSec GPT</h1>
         </div>
-        <ThemeToggle />
+        <div className="ml-auto">
+          <ThemeToggle />
+        </div>
       </header>
 
       <main className="flex-1 overflow-y-auto">
