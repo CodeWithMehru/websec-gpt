@@ -142,53 +142,57 @@ export function ChatInput({ onSendMessage }: ChatInputProps) {
   useEffect(() => {
     if (textareaRef.current) {
       textareaRef.current.style.height = 'auto';
-      textareaRef.current.style.height = `${textareaRef.current.scrollHeight}px`;
+      const scrollHeight = textareaRef.current.scrollHeight;
+      const maxHeight = parseInt(getComputedStyle(textareaRef.current).maxHeight, 10);
+      
+      if (scrollHeight > maxHeight) {
+        textareaRef.current.style.height = `${maxHeight}px`;
+        textareaRef.current.style.overflowY = 'auto';
+      } else {
+        textareaRef.current.style.height = `${scrollHeight}px`;
+        textareaRef.current.style.overflowY = 'hidden';
+      }
     }
   }, [message]);
 
   return (
-    <div className="relative">
-      <div className="flex gap-1 items-center p-2 rounded-2xl bg-secondary/20 border border-border">
-        <input
-          type="file"
-          ref={fileInputRef}
-          onChange={handleFileChange}
-          className="hidden"
-          accept="image/*"
-        />
-  
-        <div className="flex items-center">
-          <Button variant="ghost" size="icon" className="shrink-0 hover:bg-secondary" onClick={handleImageUploadClick}>
-            <Image />
-            <span className="sr-only">Upload Image</span>
-          </Button>
-          <Button variant="ghost" size="icon" className="shrink-0 hover:bg-secondary" onClick={handleMicClick}>
-            <Mic className={cn(isRecording && "text-red-500")} />
-            <span className="sr-only">Use Microphone</span>
-          </Button>
-        </div>
-  
-        <Textarea
-          ref={textareaRef}
-          value={message}
-          onChange={handleInputChange}
-          onKeyPress={handleKeyPress}
-          placeholder="Ask anything"
-          className="flex-1 resize-none border-0 shadow-none focus-visible:ring-0 bg-transparent max-h-48 py-2"
-          rows={1}
-        />
-  
-        <Button
-          size="icon"
-          onClick={handleSend}
-          disabled={!message.trim()}
-          className="shrink-0 bg-background hover:bg-secondary text-foreground disabled:bg-muted rounded-full w-8 h-8"
-        >
-          <SendHorizonal className="text-black dark:text-white" />
-          <span className="sr-only">Send</span>
-        </Button>
-      </div>
+    <div className="relative flex items-center p-2 rounded-2xl bg-secondary/20 border border-border w-full">
+      <input
+        type="file"
+        ref={fileInputRef}
+        onChange={handleFileChange}
+        className="hidden"
+        accept="image/*"
+      />
+
+      <Button variant="ghost" size="icon" className="shrink-0 hover:bg-secondary" onClick={handleImageUploadClick}>
+        <Image />
+        <span className="sr-only">Upload Image</span>
+      </Button>
+      <Button variant="ghost" size="icon" className="shrink-0 hover:bg-secondary" onClick={handleMicClick}>
+        <Mic className={cn(isRecording && "text-red-500")} />
+        <span className="sr-only">Use Microphone</span>
+      </Button>
+
+      <Textarea
+        ref={textareaRef}
+        value={message}
+        onChange={handleInputChange}
+        onKeyPress={handleKeyPress}
+        placeholder="Ask anything"
+        className="flex-1 resize-none border-0 shadow-none focus-visible:ring-0 bg-transparent py-2 max-h-32"
+        rows={1}
+      />
+
+      <Button
+        size="icon"
+        onClick={handleSend}
+        disabled={!message.trim()}
+        className="shrink-0 bg-background hover:bg-secondary text-foreground disabled:bg-muted rounded-full w-8 h-8"
+      >
+        <SendHorizonal className="text-black dark:text-white" />
+        <span className="sr-only">Send</span>
+      </Button>
     </div>
   )
-  
 }
