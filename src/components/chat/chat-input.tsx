@@ -101,7 +101,8 @@ export function ChatInput({ onSendMessage }: { onSendMessage: (message: string) 
       <div
         className={cn(
           "flex items-center gap-2 bg-muted border rounded-full px-4 h-16 transition-colors duration-150",
-          input.trim() ? "border-blue-500" : "border-transparent"
+          input.trim() ? "border-blue-500" : "border-black/50 dark:border-white/20",
+          "focus-within:border-blue-500"
         )}
       >
         <input
@@ -111,17 +112,20 @@ export function ChatInput({ onSendMessage }: { onSendMessage: (message: string) 
           accept="image/*"
           className="hidden"
         />
-
+  
         <Input
           ref={inputRef}
           value={input}
           onChange={(e) => setInput(e.target.value)}
           onKeyDown={handleKeyDown}
           placeholder="Type a message..."
-          className="flex-1 border-none bg-transparent focus-visible:ring-0 focus-visible:ring-offset-0 text-base"
-        />
+          className="flex-1 border-none bg-transparent focus-visible:ring-0 focus-visible:ring-offset-0 text-base pl-0"
 
-        <div className="flex items-center space-x-0 ml-1">
+        />
+  
+  <div className="flex items-center space-x-0 ml-1 -mr-3">
+
+
           <button
             type="button"
             onClick={handleImageUploadClick}
@@ -129,7 +133,7 @@ export function ChatInput({ onSendMessage }: { onSendMessage: (message: string) 
           >
             <Image className="text-muted-foreground w-5 h-5" />
           </button>
-
+  
           <button
             type="button"
             onClick={handleMicClick}
@@ -146,24 +150,23 @@ export function ChatInput({ onSendMessage }: { onSendMessage: (message: string) 
             />
           </button>
         </div>
-
+  
         <button
-          type="button"
-          onClick={handleSend}
-          disabled={!input.trim()}
-          className={cn(
-            "w-10 h-10 flex items-center justify-center rounded-full transition-all active:scale-95 bg-transparent",
-             input.trim() && "bg-blue-500 hover:bg-blue-600"
-          )}
-        >
-          <SendHorizonal
-            className={cn(
-              "w-5 h-5 transition",
-              input.trim() ? "text-white" : "text-foreground dark:text-white"
-            )}
-          />
-        </button>
+  type="button"
+  onClick={handleSend}
+  disabled={!input.trim()}
+  className={cn(
+    "w-10 h-10 flex items-center justify-center rounded-full transition-all active:scale-95",
+    input.trim()
+      ? "bg-blue-500 hover:bg-blue-600 text-white"
+      : "hover:bg-secondary text-muted-foreground"
+  )}
+>
+  <SendHorizonal className="w-5 h-5" />
+</button>
+
       </div>
     </div>
   )
+  
 }
