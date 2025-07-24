@@ -1,9 +1,8 @@
 "use client"
 
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
-import { Button } from "@/components/ui/button"
 import { Sidebar, SidebarContent, SidebarFooter, SidebarHeader, SidebarMenu, SidebarMenuItem, SidebarMenuButton } from "@/components/ui/sidebar"
-import { MessageSquare, Plus, Settings, HelpCircle, History } from "lucide-react"
+import { MessageSquare, Settings, HelpCircle, History } from "lucide-react"
 
 const chatHistory = [
   { id: 1, title: "React best practices" },
@@ -18,23 +17,40 @@ const chatHistory = [
 export function MainSidebar() {
   return (
     <Sidebar className="border-r" variant="sidebar" collapsible="icon">
+      
+      {/* Header with "WebSec GPT" and user greeting */}
       <SidebarHeader className="p-2">
-        <Button variant="secondary" className="w-full justify-start gap-2 rounded-full">
-          <Plus size={16} />
-          New Chat
-        </Button>
+        <div className="flex flex-col items-center justify-center w-full py-2 md:py-5">
+          <div className="text-center">
+            <h1 className="text-2xl md:text-3xl font-bold bg-gradient-to-r from-primary via-purple-500 to-red-500 text-transparent bg-clip-text">
+              WebSec GPT
+            </h1>
+          </div>
+        </div>
       </SidebarHeader>
+
+      {/* Chat history and menu */}
       <SidebarContent className="p-2">
         <SidebarMenu>
           <SidebarMenuItem>
-             <SidebarMenuButton size="sm" variant="ghost" className="w-full justify-start text-muted-foreground font-normal">
-                <History size={16} />
-                <span>Recent</span>
-              </SidebarMenuButton>
+            <SidebarMenuButton
+              size="sm"
+              variant="ghost"
+              className="w-full justify-start text-muted-foreground font-normal"
+            >
+              <History size={16} />
+              <span>Recent</span>
+            </SidebarMenuButton>
           </SidebarMenuItem>
+
           {chatHistory.map((chat) => (
             <SidebarMenuItem key={chat.id}>
-              <SidebarMenuButton size="sm" variant="ghost" className="w-full justify-start font-normal" tooltip={chat.title}>
+              <SidebarMenuButton
+                size="sm"
+                variant="ghost"
+                className="w-full justify-start font-normal"
+                tooltip={chat.title}
+              >
                 <MessageSquare size={16} className="text-muted-foreground" />
                 <span>{chat.title}</span>
               </SidebarMenuButton>
@@ -42,24 +58,41 @@ export function MainSidebar() {
           ))}
         </SidebarMenu>
       </SidebarContent>
+
+      {/* Footer: Help, Settings, User */}
       <SidebarFooter className="p-2">
         <SidebarMenu>
           <SidebarMenuItem>
-            <SidebarMenuButton size="sm" variant="ghost" className="w-full justify-start font-normal" tooltip="Help">
+            <SidebarMenuButton
+              size="sm"
+              variant="ghost"
+              className="w-full justify-start font-normal"
+              tooltip="Help"
+            >
               <HelpCircle size={16} />
               <span>Help</span>
             </SidebarMenuButton>
           </SidebarMenuItem>
           <SidebarMenuItem>
-            <SidebarMenuButton size="sm" variant="ghost" className="w-full justify-start font-normal" tooltip="Settings">
+            <SidebarMenuButton
+              size="sm"
+              variant="ghost"
+              className="w-full justify-start font-normal"
+              tooltip="Settings"
+            >
               <Settings size={16} />
               <span>Settings</span>
             </SidebarMenuButton>
           </SidebarMenuItem>
           <SidebarMenuItem>
-            <SidebarMenuButton size="sm" variant="ghost" className="w-full justify-start gap-2 font-normal" tooltip="User Profile">
+            <SidebarMenuButton
+              size="sm"
+              variant="ghost"
+              className="w-full justify-start gap-2 font-normal"
+              tooltip="User Profile"
+            >
               <Avatar className="h-7 w-7">
-                <AvatarImage src="https://placehold.co/40x40.png" alt="User" data-ai-hint="user avatar" />
+                <AvatarImage src="https://placehold.co/40x40.png" alt="User" />
                 <AvatarFallback>U</AvatarFallback>
               </Avatar>
               <span>User</span>
@@ -67,6 +100,7 @@ export function MainSidebar() {
           </SidebarMenuItem>
         </SidebarMenu>
       </SidebarFooter>
+
     </Sidebar>
   )
 }

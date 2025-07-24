@@ -27,12 +27,11 @@ const suggestionCards = [
 
 export function ChatWelcome() {
   return (
-    <div className="flex flex-col items-center justify-center py-2 md:py-5">
+    <div className="flex flex-col items-center justify-center py-9 md:py-10">
       <div className="text-center mb-8 md:mb-12">
-        <h1 className="text-5xl md:text-6xl font-bold bg-gradient-to-r from-primary via-purple-500 to-red-500 text-transparent bg-clip-text mb-4">
-          Hello, User
-        </h1>
-        <p className="text-2xl text-muted-foreground">How can I help you today?</p>
+      <h1 className="text-2xl md:text-6xl font-extrabold tracking-tight leading-tight scale-[1.2] md:scale-100 bg-gradient-to-r from-primary via-purple-500 to-red-500 text-transparent bg-clip-text mb-4">
+  How Can I Help You Today?
+</h1>
       </div>
       <div className="grid grid-cols-1 md:grid-cols-2 gap-4 w-full">
         {suggestionCards.map((card, index) => (

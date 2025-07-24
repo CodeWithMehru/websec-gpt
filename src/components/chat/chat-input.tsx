@@ -1,205 +1,169 @@
 
 "use client"
-import React, { useState, useRef, useEffect } from "react"
-import { Textarea } from "@/components/ui/textarea"
-import { Button } from "@/components/ui/button"
+import { Input } from "@/components/ui/input"
 import { Image, Mic, SendHorizonal } from "lucide-react"
-import { useToast } from "@/hooks/use-toast"
 import { cn } from "@/lib/utils"
+import { useState, useRef, useEffect } from "react"
+import { useToast } from "@/hooks/use-toast"
 
-interface ChatInputProps {
-  onSendMessage: (content: string) => void
-}
-
-// Extend the Window interface to include webkitSpeechRecognition
-declare global {
-  interface Window {
-    SpeechRecognition: typeof SpeechRecognition;
-    webkitSpeechRecognition: typeof SpeechRecognition;
-  }
-}
-
-export function ChatInput({ onSendMessage }: ChatInputProps) {
-  const [message, setMessage] = useState("")
+export function ChatInput({ onSendMessage }: { onSendMessage: (message: string) => void }) {
+  const [input, setInput] = useState("")
   const [isRecording, setIsRecording] = useState(false)
-  const recognitionRef = useRef<SpeechRecognition | null>(null)
-  const textareaRef = useRef<HTMLTextAreaElement>(null)
   const fileInputRef = useRef<HTMLInputElement>(null)
+  const inputRef = useRef<HTMLInputElement>(null)
+  const recognitionRef = useRef<SpeechRecognition | null>(null)
   const { toast } = useToast()
 
   useEffect(() => {
-    const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
-
+    const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition
     if (SpeechRecognition) {
-      const recognition = new SpeechRecognition();
-      recognition.continuous = true;
-      recognition.interimResults = true;
-      recognition.lang = 'en-US';
+      const recognition = new SpeechRecognition()
+      recognition.continuous = true
+      recognition.interimResults = true
+      recognition.lang = "en-US"
 
       recognition.onresult = (event) => {
-        let interimTranscript = '';
-        let finalTranscript = '';
+        let transcript = ""
         for (let i = event.resultIndex; i < event.results.length; ++i) {
-          if (event.results[i].isFinal) {
-            finalTranscript += event.results[i][0].transcript;
-          } else {
-            interimTranscript += event.results[i][0].transcript;
-          }
+          transcript += event.results[i][0].transcript
         }
-        setMessage(prevMessage => prevMessage + finalTranscript + interimTranscript);
-      };
+        setInput((prev) => prev + transcript)
+      }
 
       recognition.onerror = (event) => {
-        console.error("Speech recognition error", event.error);
         toast({
           variant: "destructive",
-          title: "Speech Recognition Error",
-          description: `An error occurred: ${event.error}`,
-        });
-        setIsRecording(false);
-      };
-      
-      recognition.onend = () => {
-        setIsRecording(false);
+          title: "Mic error",
+          description: `Error: ${event.error}`,
+        })
+        setIsRecording(false)
       }
 
-      recognitionRef.current = recognition;
-    } else {
-      console.warn("Speech Recognition not supported in this browser.");
+      recognition.onend = () => setIsRecording(false)
+
+      recognitionRef.current = recognition
     }
-
-    return () => {
-      recognitionRef.current?.stop();
-    };
-  }, [toast]);
-
-  const handleMicClick = () => {
-    if (!recognitionRef.current) {
-      toast({
-        variant: "destructive",
-        title: "Unsupported Feature",
-        description: "Speech recognition is not supported by your browser.",
-      });
-      return;
-    }
-    
-    if (isRecording) {
-      recognitionRef.current.stop();
-      setIsRecording(false);
-    } else {
-      // Clear message on new recording
-      setMessage("");
-      try {
-        recognitionRef.current.start();
-        setIsRecording(true);
-      } catch (error) {
-        console.error("Could not start recognition", error);
-        toast({
-          variant: "destructive",
-          title: "Could not start recording",
-          description: "Please ensure microphone permissions are granted.",
-        });
-      }
-    }
-  };
-
-
-  const handleImageUploadClick = () => {
-    fileInputRef.current?.click();
-  };
-
-  const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const file = e.target.files?.[0];
-    if (file) {
-      // You can handle the file upload logic here.
-      // For now, we'll just log it to the console.
-      console.log("Selected file:", file.name);
-    }
-  };
-
-  const handleInputChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
-    setMessage(e.target.value)
-  }
+  }, [toast])
 
   const handleSend = () => {
-    if (message.trim()) {
-      if(isRecording) {
-        recognitionRef.current?.stop();
-        setIsRecording(false);
-      }
-      onSendMessage(message.trim())
-      setMessage("")
-    }
+    if (!input.trim()) return
+    if (isRecording) recognitionRef.current?.stop()
+    onSendMessage(input.trim())
+    setInput("")
+    inputRef.current?.focus()
   }
 
-  const handleKeyPress = (e: React.KeyboardEvent<HTMLTextAreaElement>) => {
+  const handleKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
     if (e.key === "Enter" && !e.shiftKey) {
       e.preventDefault()
       handleSend()
     }
   }
-  
-  useEffect(() => {
-    if (textareaRef.current) {
-      textareaRef.current.style.height = 'auto';
-      const scrollHeight = textareaRef.current.scrollHeight;
-      const maxHeight = parseInt(getComputedStyle(textareaRef.current).maxHeight, 10);
-      
-      if (scrollHeight > maxHeight) {
-        textareaRef.current.style.height = `${maxHeight}px`;
-        textareaRef.current.style.overflowY = 'auto';
-      } else {
-        textareaRef.current.style.height = `${scrollHeight}px`;
-        textareaRef.current.style.overflowY = 'hidden';
+
+  const handleMicClick = () => {
+    if (!recognitionRef.current) {
+      toast({
+        variant: "destructive",
+        title: "Mic not supported",
+        description: "Browser doesn't support speech recognition",
+      })
+      return
+    }
+
+    if (isRecording) {
+      recognitionRef.current.stop()
+      setIsRecording(false)
+    } else {
+      try {
+        recognitionRef.current.start()
+        setIsRecording(true)
+      } catch (err) {
+        toast({
+          variant: "destructive",
+          title: "Mic start error",
+          description: "Mic permission denied or already active",
+        })
       }
     }
-  }, [message]);
+  }
+
+  const handleImageUploadClick = () => {
+    fileInputRef.current?.click()
+  }
+
+  const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0]
+    if (file) console.log("Selected file:", file.name)
+  }
 
   return (
-    <div className="flex items-center p-2 rounded-full border bg-secondary/50">
-      <input
-        type="file"
-        ref={fileInputRef}
-        onChange={handleFileChange}
-        className="hidden"
-        accept="image/*"
-      />
-      <Button
-        variant="ghost"
-        size="icon"
-        onClick={handleImageUploadClick}
-        className="shrink-0 hover:bg-secondary"
+    <div className="w-full">
+      <div
+        className={cn(
+          "flex items-center gap-2 bg-muted border rounded-full px-4 h-16 transition-colors duration-150",
+          input.trim() ? "border-blue-500" : "border-transparent"
+        )}
       >
-        <Image />
-        <span className="sr-only">Upload Image</span>
-      </Button>
-      <Button
-        variant="ghost"
-        size="icon"
-        onClick={handleMicClick}
-        className={cn("shrink-0 hover:bg-secondary", isRecording && "text-red-500")}
-      >
-        <Mic />
-        <span className="sr-only">Use Microphone</span>
-      </Button>
-      <Textarea
-        ref={textareaRef}
-        value={message}
-        onChange={handleInputChange}
-        onKeyPress={handleKeyPress}
-        placeholder="Ask anything"
-        className="flex-1 resize-none border-0 shadow-none focus-visible:ring-0 bg-transparent py-2"
-        rows={1}
-      />
-      <Button
-        size="icon"
-        onClick={handleSend}
-        disabled={!message.trim()}
-        className="shrink-0 bg-transparent hover:bg-transparent text-foreground disabled:opacity-50 w-10 h-10"
-      >
-        <SendHorizonal className="dark:text-white text-black" />
-        <span className="sr-only">Send</span>
-      </Button>
+        <input
+          type="file"
+          ref={fileInputRef}
+          onChange={handleFileChange}
+          accept="image/*"
+          className="hidden"
+        />
+
+        <Input
+          ref={inputRef}
+          value={input}
+          onChange={(e) => setInput(e.target.value)}
+          onKeyDown={handleKeyDown}
+          placeholder="Type a message..."
+          className="flex-1 border-none bg-transparent focus-visible:ring-0 focus-visible:ring-offset-0 text-base"
+        />
+
+        <div className="flex items-center space-x-0 ml-1">
+          <button
+            type="button"
+            onClick={handleImageUploadClick}
+            className="w-10 h-10 flex items-center justify-center rounded-full hover:bg-secondary transition active:scale-95"
+          >
+            <Image className="text-muted-foreground w-5 h-5" />
+          </button>
+
+          <button
+            type="button"
+            onClick={handleMicClick}
+            className={cn(
+              "w-10 h-10 flex items-center justify-center rounded-full transition active:scale-95",
+              isRecording ? "bg-red-500/20" : "hover:bg-secondary"
+            )}
+          >
+            <Mic
+              className={cn(
+                "w-5 h-5 text-muted-foreground",
+                isRecording && "text-red-600 animate-pulse"
+              )}
+            />
+          </button>
+        </div>
+
+        <button
+          type="button"
+          onClick={handleSend}
+          disabled={!input.trim()}
+          className={cn(
+            "w-10 h-10 flex items-center justify-center rounded-full transition-all active:scale-95 bg-transparent",
+             input.trim() && "bg-blue-500 hover:bg-blue-600"
+          )}
+        >
+          <SendHorizonal
+            className={cn(
+              "w-5 h-5 transition",
+              input.trim() ? "text-white" : "text-foreground dark:text-white"
+            )}
+          />
+        </button>
+      </div>
     </div>
-  );
+  )
 }
