@@ -17,7 +17,12 @@ export function ChatMessage({ sender, content }: Message) {
   const isUser = sender === 'user'
 
   return (
-    <div className={cn("flex items-start gap-4", isUser && "justify-end")}>
+    <div
+      className={cn(
+        "flex items-start gap-4",
+        isUser ? "justify-end" : "justify-start"
+      )}
+    >
       {!isUser && (
         <Avatar className="h-8 w-8 shrink-0">
           <AvatarFallback className="bg-primary text-primary-foreground">
@@ -25,12 +30,13 @@ export function ChatMessage({ sender, content }: Message) {
           </AvatarFallback>
         </Avatar>
       )}
+
       <div
         className={cn(
-          "max-w-[75%] rounded-2xl p-4",
+          "rounded-2xl px-4 py-2 break-words whitespace-pre-wrap w-fit max-w-[85vw] sm:max-w-[75%] overflow-wrap",
           isUser
-            ? "bg-primary text-primary-foreground rounded-br-none"
-            : "bg-secondary text-secondary-foreground rounded-bl-none"
+            ? "bg-primary text-primary-foreground rounded-br-none ml-auto"
+            : "bg-secondary text-secondary-foreground rounded-bl-none mr-auto"
         )}
       >
         <ReactMarkdown
@@ -49,7 +55,13 @@ export function ChatMessage({ sender, content }: Message) {
                   {String(children).replace(/\n$/, '')}
                 </SyntaxHighlighter>
               ) : (
-                <code className={cn("bg-black/10 dark:bg-white/10 px-1 py-0.5 rounded", className)} {...props}>
+                <code
+                  className={cn(
+                    "bg-black/10 dark:bg-white/10 px-1 py-0.5 rounded",
+                    className
+                  )}
+                  {...props}
+                >
                   {children}
                 </code>
               )
@@ -59,6 +71,7 @@ export function ChatMessage({ sender, content }: Message) {
           {content}
         </ReactMarkdown>
       </div>
+
       {isUser && (
         <Avatar className="h-8 w-8 shrink-0">
           <AvatarFallback>

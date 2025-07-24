@@ -1,7 +1,15 @@
 "use client"
 
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
-import { Sidebar, SidebarContent, SidebarFooter, SidebarHeader, SidebarMenu, SidebarMenuItem, SidebarMenuButton } from "@/components/ui/sidebar"
+import {
+  Sidebar,
+  SidebarContent,
+  SidebarFooter,
+  SidebarHeader,
+  SidebarMenu,
+  SidebarMenuItem,
+  SidebarMenuButton,
+} from "@/components/ui/sidebar"
 import { MessageSquare, Settings, HelpCircle, History } from "lucide-react"
 
 const chatHistory = [
@@ -17,15 +25,16 @@ const chatHistory = [
 export function MainSidebar() {
   return (
     <Sidebar className="border-r" variant="sidebar" collapsible="icon">
-      
-      {/* Header with "WebSec GPT" and user greeting */}
+
+      {/* Header with clickable "WebSec GPT" */}
       <SidebarHeader className="p-2">
-        <div className="flex flex-col items-center justify-center w-full py-2 md:py-5">
-          <div className="text-center">
-            <h1 className="text-2xl md:text-3xl font-bold bg-gradient-to-r from-primary via-purple-500 to-red-500 text-transparent bg-clip-text">
-              WebSec GPT
-            </h1>
-          </div>
+        <div className="flex flex-col items-start justify-center w-full px-4 py-2 md:py-5">
+          <h1
+            onClick={() => window.location.reload()}
+            className="cursor-pointer text-2xl md:text-3xl font-bold bg-gradient-to-r from-primary via-purple-500 to-red-500 text-transparent bg-clip-text transition hover:opacity-80"
+          >
+            WebSec GPT
+          </h1>
         </div>
       </SidebarHeader>
 
@@ -39,7 +48,7 @@ export function MainSidebar() {
               className="w-full justify-start text-muted-foreground font-normal"
             >
               <History size={16} />
-              <span>Recent</span>
+              <span>Chats</span>
             </SidebarMenuButton>
           </SidebarMenuItem>
 

@@ -5,7 +5,7 @@ import { Cpu, Rocket, Bot, Code } from "lucide-react" // ✅ Correct icon import
 const suggestionCards = [
   {
     title: "Explore WebSec AI",
-    description: "An AI-powered software and cybersecurity company building next-gen security tools.",
+    description: "An AI-powered software development and cybersecurity company building next-gen security tools.",
     icon: <Cpu size={24} />,
   },
   {

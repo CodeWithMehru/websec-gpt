@@ -50,7 +50,8 @@ export function ChatInterface() {
   }, [messages]);
 
   return (
-    <SidebarInset className="flex flex-col max-h-screen">
+    <SidebarInset className="flex flex-col h-full">
+
       <header className="flex items-center justify-between p-2 md:p-4 border-b">
         <div className="flex items-center gap-2">
           <SidebarTrigger className="md:hidden" />
@@ -60,20 +61,17 @@ export function ChatInterface() {
         </div>
       </header>
 
-      <main className="flex-1 overflow-y-auto">
-
-        <ScrollArea className="h-full" ref={scrollAreaRef}>
-          <div className="p-2 md:p-6 lg:p-8 space-y-2 max-w-4xl mx-auto">
-            {showWelcome ? (
-              <ChatWelcome />
-            ) : (
-              messages.map((message) => <ChatMessage key={message.id} {...message} />)
-            )}
-          </div>
-        </ScrollArea>
-      </main>
-
-
+      <main className="flex flex-1 flex-col overflow-hidden"> {/* Fix height */}
+  <ScrollArea className="flex-1 overflow-y-auto" ref={scrollAreaRef}>
+    <div className="p-2 md:p-6 lg:p-8 space-y-2 max-w-4xl mx-auto">
+      {showWelcome ? (
+        <ChatWelcome />
+      ) : (
+        messages.map((message) => <ChatMessage key={message.id} {...message} />)
+      )}
+    </div>
+  </ScrollArea>
+</main>
 
       <footer className="px-2 py-2 md:px-4 md:py-2 border-t bg-background">
   <div className="max-w-2xl mx-auto px-0">
@@ -83,7 +81,6 @@ export function ChatInterface() {
     </p>
   </div>
 </footer>
-
 
     </SidebarInset>
   )

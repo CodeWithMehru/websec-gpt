@@ -18,18 +18,15 @@ export function ChatInput({ onSendMessage }: { onSendMessage: (message: string) 
     const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition
     if (SpeechRecognition) {
       const recognition = new SpeechRecognition()
-      recognition.continuous = true
-      recognition.interimResults = true
+      recognition.continuous = false // ✅ Only capture one sentence
+      recognition.interimResults = false // ✅ Disable interim
       recognition.lang = "en-US"
-
+  
       recognition.onresult = (event) => {
-        let transcript = ""
-        for (let i = event.resultIndex; i < event.results.length; ++i) {
-          transcript += event.results[i][0].transcript
-        }
+        const transcript = event.results[0][0].transcript
         setInput((prev) => prev + transcript)
       }
-
+  
       recognition.onerror = (event) => {
         toast({
           variant: "destructive",
@@ -38,12 +35,13 @@ export function ChatInput({ onSendMessage }: { onSendMessage: (message: string) 
         })
         setIsRecording(false)
       }
-
+  
       recognition.onend = () => setIsRecording(false)
-
+  
       recognitionRef.current = recognition
     }
   }, [toast])
+  
 
   const handleSend = () => {
     if (!input.trim()) return
@@ -124,8 +122,6 @@ export function ChatInput({ onSendMessage }: { onSendMessage: (message: string) 
         />
   
   <div className="flex items-center space-x-0 ml-1 -mr-3">
-
-
           <button
             type="button"
             onClick={handleImageUploadClick}
@@ -156,6 +152,7 @@ export function ChatInput({ onSendMessage }: { onSendMessage: (message: string) 
   onClick={handleSend}
   disabled={!input.trim()}
   className={cn(
+    "ml-2", // 👈 Add margin-left here
     "w-10 h-10 flex items-center justify-center rounded-full transition-all active:scale-95",
     input.trim()
       ? "bg-blue-500 hover:bg-blue-600 text-white"
