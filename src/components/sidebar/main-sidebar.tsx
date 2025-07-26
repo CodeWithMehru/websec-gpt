@@ -78,7 +78,7 @@ export function MainSidebar() {
               variant="ghost"
               className="w-full justify-start font-normal"
               tooltip="Privacy Policy"
-              onClick={() => window.open("/privacy-policy", "_blank")}
+              onClick={() => window.open("/privacy", "_blank")}
             >
               <ShieldCheck size={16} />
               <span>Privacy Policy</span>
