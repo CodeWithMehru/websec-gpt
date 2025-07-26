@@ -13,13 +13,11 @@ import {
 import { MessageSquare, FileText, ShieldCheck, History } from "lucide-react" // used ShieldCheck & FileText icons
 
 const chatHistory = [
-  { id: 1, title: "React best practices" },
-  { id: 2, title: "Next.js 14 new features" },
-  { id: 3, title: "How to use Tailwind CSS" },
-  { id: 4, title: "Kubernetes deployment guide" },
-  { id: 5, title: "GraphQL vs REST API" },
-  { id: 6, title: "A history of ancient Rome" },
-  { id: 7, title: "Tips for public speaking" },
+  { id: 1, title: "Salman CR Vs Quiyom Sir XXX" },
+  { id: 2, title: "Waris Vs Junaid Sir Blowjob" },
+  { id: 3, title: "Banana Mam Vs Tawseef Sir X Videos Link" },
+  { id: 4, title: "College Leak Washroom Videos" },
+  { id: 5, title: "CR Giving 💋 for internals HD leaked" },
 ]
 
 export function MainSidebar() {
