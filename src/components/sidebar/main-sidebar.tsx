@@ -10,7 +10,7 @@ import {
   SidebarMenuItem,
   SidebarMenuButton,
 } from "@/components/ui/sidebar"
-import { MessageSquare, Settings, HelpCircle, History } from "lucide-react"
+import { MessageSquare, FileText, ShieldCheck, History } from "lucide-react" // used ShieldCheck & FileText icons
 
 const chatHistory = [
   { id: 1, title: "React best practices" },
@@ -53,14 +53,14 @@ export function MainSidebar() {
           </SidebarMenuItem>
 
           {chatHistory.map((chat) => (
-            <SidebarMenuItem key={chat.id}>
+            <SidebarMenuItem key={chat.id} className="mb-2">
               <SidebarMenuButton
                 size="sm"
                 variant="ghost"
-                className="w-full justify-start font-normal"
+                className="w-full justify-start font-medium text-[15px] leading-snug"
                 tooltip={chat.title}
               >
-                <MessageSquare size={16} className="text-muted-foreground" />
+                <MessageSquare size={18} className="text-muted-foreground" />
                 <span>{chat.title}</span>
               </SidebarMenuButton>
             </SidebarMenuItem>
@@ -68,31 +68,38 @@ export function MainSidebar() {
         </SidebarMenu>
       </SidebarContent>
 
-      {/* Footer: Help, Settings, User */}
+      {/* Footer: Privacy Policy, Terms, User */}
       <SidebarFooter className="p-2">
         <SidebarMenu>
+          {/* ✅ Privacy Policy */}
           <SidebarMenuItem>
             <SidebarMenuButton
               size="sm"
               variant="ghost"
               className="w-full justify-start font-normal"
-              tooltip="Help"
+              tooltip="Privacy Policy"
+              onClick={() => window.open("/privacy-policy", "_blank")}
             >
-              <HelpCircle size={16} />
-              <span>Help</span>
+              <ShieldCheck size={16} />
+              <span>Privacy Policy</span>
             </SidebarMenuButton>
           </SidebarMenuItem>
+
+          {/* ✅ Terms & Conditions */}
           <SidebarMenuItem>
             <SidebarMenuButton
               size="sm"
               variant="ghost"
               className="w-full justify-start font-normal"
-              tooltip="Settings"
+              tooltip="Terms & Conditions"
+              onClick={() => window.open("/terms", "_blank")}
             >
-              <Settings size={16} />
-              <span>Settings</span>
+              <FileText size={16} />
+              <span>Terms & Conditions</span>
             </SidebarMenuButton>
           </SidebarMenuItem>
+
+          {/* 👤 User */}
           <SidebarMenuItem>
             <SidebarMenuButton
               size="sm"
