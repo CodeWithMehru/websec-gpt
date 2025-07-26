@@ -31,7 +31,7 @@ export function ChatInterface() {
       const aiResponse: Message = {
         id: String(Date.now() + 1),
         sender: 'ai',
-        content: `This is a mocked response to: "${content}". I am a front-end clone and do not have real AI capabilities. Here is some example code:\n\`\`\`javascript\nconsole.log("Hello, World!");\n\`\`\``,
+        content: `Cxutmaya Ye Nich Kucher Ye Chu Wni Prototypi Hout Wni Chu Meh Data Feed Krni`,
       };
       setMessages((prev) => [...prev, aiResponse]);
     }, 1000);

@@ -98,7 +98,7 @@ export function ChatInput({ onSendMessage }: { onSendMessage: (message: string) 
     <div className="w-full">
       <div
         className={cn(
-          "flex items-center gap-2 bg-muted border rounded-full px-4 h-14 transition-colors duration-150",
+          "flex items-center gap-2 bg-muted border rounded-full px-4 h-16 transition-colors duration-150",
           input.trim() ? "border-primary" : "border-black/50 dark:border-white/20",
           "focus-within:border-primary"
         )}
